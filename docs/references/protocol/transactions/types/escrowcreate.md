@@ -34,7 +34,7 @@ Set aside funds in an [escrow](../../../../concepts/payment-types/escrow.md) tha
 
 | Field            | JSON Type | [Internal Type][] | Description               |
 |:-----------------|:----------|:------------------|:--------------------------|
-| `Amount`         | Object or String    | Amount            | Amount of XRP or fungible tokens to deduct from the sender's balance and escrow. Once escrowed, the payment can either go to the `Destination` address (after the `FinishAfter` time) or be returned to the sender (after the `CancelAfter` time). |
+| `Amount`         | Object or String    | Amount            | Amount of XRP or fungible tokens (with the TokenEscrow amendment) to deduct from the sender's balance and escrow. Once escrowed, the payment can either go to the `Destination` address (after the `FinishAfter` time) or be returned to the sender (after the `CancelAfter` time). {% amendment-disclaimer name="TokenEscrow" mode="updated" /%} |
 | `Destination`    | String    | AccountID         | Address to receive escrowed XRP. |
 | `CancelAfter`    | Number    | UInt32            | _(Optional)_ The time, in [seconds since the Ripple Epoch][], when this escrow expires. This value is immutable; the funds can only be returned to the sender after this time. |
 | `FinishAfter`    | Number    | UInt32            | _(Optional)_ The time, in [seconds since the Ripple Epoch][], when the escrowed XRP can be released to the recipient. This value is immutable, and the funds can't be accessed until this time. |
@@ -56,6 +56,16 @@ It is not possible to create a conditional escrow with no expiration, but you ca
 {% admonition type="info" name="Note" %}
 Before the [fix1571 amendment][] became enabled on 2018-06-19, it was possible to create an escrow with `CancelAfter` only. These escrows could be finished by anyone at any time before the specified expiration.
 {% /admonition %}
+
+## Error Cases
+
+Besides errors that can occur for all transactions, {% $frontmatter.seo.title %} transactions can result in the following [transaction result codes](../transaction-results/index.md):
+
+| Error Code          | Description                                  |
+|:--------------------|:---------------------------------------------|
+| `tecNO_PERMISSION`  | The issuer's account does not have the `lsfAllowTrustLineLocking` flag set. |
+
+
 
 ## See Also
 

@@ -12,6 +12,14 @@ Traditionally, an escrow is a contract between two parties to facilitate financi
 
 The XRP Ledger takes escrow a step further, replacing the third party with an automated system built into the ledger. An escrow locks up XRP or fungible tokens, which can't be used or destroyed until conditions are met.
 
+{% amendment-disclaimer name="Escrow" /%}
+
+## Fungible Tokens
+
+The [TokenEscrow amendment][] extends escrow functionality to fungible tokens, meaning both Trust Line Tokens and Multi-Purpose Tokens (MPTs) can be held in escrow.
+
+{% amendment-disclaimer name="TokenEscrow" /%}
+
 ## Types of Escrow
 
 The XRP Ledger supports three types of escrow:
@@ -22,9 +30,11 @@ The XRP Ledger supports three types of escrow:
 
 ## Escrow Lifecycle
 
+The lifecycle of an escrow is as follows:
+
 1. The sender creates an escrow using the `EscrowCreate` transaction. This transaction defines:
 
-    - An number of XRP or fungible tokens to lock up.
+    - A number of XRP or fungible tokens to lock up.
     - The conditions to release the XRP or fungible tokens.
     - The recipient of the XRP or fungible tokens.
 
@@ -65,7 +75,7 @@ When using crypto-conditions, the EscrowFinish transaction must pay a [higher tr
 
 The additional transaction cost required is proportional to the size of the fulfillment. If the transaction is [multi-signed](../accounts/multi-signing.md), the cost of multi-signing is added to the cost of the fulfillment.
 
-Currently, an EscrowFinish with a fulfillment requires a minimum transaction cost of **330 [drops of XRP](../../references/protocol/data-types/basic-data-types.md#specifying-currency-amounts)** plus 10 drops per 16 bytes in the size of the fulfillment**.
+Currently, an EscrowFinish with a fulfillment requires a minimum transaction cost of **330 [drops of XRP](../../references/protocol/data-types/basic-data-types.md#specifying-currency-amounts)** plus 10 drops per 16 bytes in the size of the fulfillment.
 
 {% admonition type="info" name="Note" %}The above formula is based on the assumption that the reference cost of a transaction is 10 drops of XRP.{% /admonition %}
 
